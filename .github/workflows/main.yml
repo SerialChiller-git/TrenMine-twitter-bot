@@ -2,45 +2,40 @@ name: Run Python Script on Schedule
 
 on:
   schedule:
-    - cron: '0 */4 * * *'  # Runs every 4 hours (adjust the cron expression as needed)
+    - cron: '0 */4 * * *'  # Every 4 hours
   push:
     branches:
-      - main  # Run the job when changes are pushed to the main branch
+      - main
 
 jobs:
   run_script:
     runs-on: ubuntu-latest
+
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Set up environment variables
         run: |
           echo "API_KEY=${{ secrets.API_KEY }}" >> $GITHUB_ENV
           echo "API_SECRET=${{ secrets.API_SECRET }}" >> $GITHUB_ENV
           echo "ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }}" >> $GITHUB_ENV
           echo "ACCESS_TOKEN_SECRET=${{ secrets.ACCESS_TOKEN_SECRET }}" >> $GITHUB_ENV
-          echo "BEARER_TOKEN=${{ secrets.BEARER_TOKEN }}" >> $GITHUB_ENV
-
-      - name: Checkout code
-        uses: actions/checkout@v2
 
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.8'  # Specify the Python version
+          python-version: '3.8'
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt  # Install dependencies from requirements.txt
+          pip install -r requirements.txt
 
       - name: Install Playwright Browsers
         run: |
-          python -m playwright install  # Install necessary browsers for Playwright
+          python -m playwright install
 
       - name: Run Python script
-        env:
-          API_KEY: ${{ secrets.API_KEY }}
-          API_SECRET: ${{ secrets.API_SECRET }}
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
         run: |
           python main.py
