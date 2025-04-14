@@ -6,3 +6,4 @@ myprojectenv/lib/python3.12/site-packages/playwright/driver/* filter=lfs diff=lf
 *.md text
 *.html text
 *.js text
+.png
