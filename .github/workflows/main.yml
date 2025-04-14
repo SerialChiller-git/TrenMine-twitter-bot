@@ -11,6 +11,14 @@ jobs:
   run_script:
     runs-on: ubuntu-latest
     steps:
+      - name: Set up environment variables
+        run: |
+          echo "API_KEY=${{ secrets.API_KEY }}" >> $GITHUB_ENV
+          echo "API_SECRET=${{ secrets.API_SECRET }}" >> $GITHUB_ENV
+          echo "ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }}" >> $GITHUB_ENV
+          echo "ACCESS_TOKEN_SECRET=${{ secrets.ACCESS_TOKEN_SECRET }}" >> $GITHUB_ENV
+          echo "BEARER_TOKEN=${{ secrets.BEARER_TOKEN }}" >> $GITHUB_ENV
+
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -34,6 +42,5 @@ jobs:
           API_SECRET: ${{ secrets.API_SECRET }}
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
-          BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
         run: |
           python main.py
