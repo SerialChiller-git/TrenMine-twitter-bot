@@ -1,9 +1,0 @@
-services:
-  - type: cron
-    name: trendmine-tweet
-    env: python
-    buildCommand: |
-      pip install -r requirements.txt
-      playwright install --with-deps
-    startCommand: python main.py
-    schedule: "@every 2h"
