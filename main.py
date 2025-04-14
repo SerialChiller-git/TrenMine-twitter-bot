@@ -1,4 +1,4 @@
-from datetime import datetime, UTC
+from datetime import datetime, timezone
 import os
 import tweepy
 from dotenv import load_dotenv
@@ -50,7 +50,8 @@ media_path = "screenshot.png"
 media = client_v1.media_upload(filename=media_path)
 media_id = media.media_id
 # Get current UTC time
-now = datetime.now(UTC)
+
+now = datetime.now(timezone.utc)
 formatted_time = now.strftime("%B %d, %Y – %I:%M %p UTC")
 tweet_text =  f"""
 🔥 Top 15 Trending Coins – Live market pulse as of {formatted_time}
